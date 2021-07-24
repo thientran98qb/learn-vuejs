@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo">
+        <span>Tong diem : {{ totalScore }}</span>
+        <button @click="fullName = 'thien' ">Click</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#demo',
+            data: {
+                firstName: 'Foo',
+                lastName: 'Barr',
+                subjects: [
+                    {name: 'Triết học', mark: 5},
+                    {name: 'Vật lý đại cương', mark: 10},
+                    {name: 'Kỹ thuật nhiệt', mark: 8}
+                ]
+            },
+            computed: {
+                //Xử lý và trả về một function có thể gọi như một biến
+                fullName: {
+                    get: function(){
+                        return this.firstName + '-' + this.lastName;
+                    }, 
+                    set:function(full){
+                        this.firstName = full;
+                    }
+                },
+                totalScore: function() {
+                    return this.subjects.reduce((current,value) => {
+                        return current + value.mark
+                    },0);
+                }
+            },
+            // dùng để theo dõi sự thay đổi khi render dữ liệu
+            watch: {
+                fullName() {
+                    console.log('fullname change');
+                }
+            }
+        })
+    </script>
+</body>
+</html>
